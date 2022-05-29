@@ -8,11 +8,11 @@ from pypoca.ext import ALL, DEFAULT, Choice, Option
 
 
 class Setting(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     @commands.slash_command(description=DEFAULT["COMMAND_SETTING_DESC"])
-    async def setting(self, inter: disnake.ApplicationCommandInteraction):
+    async def setting(self, inter: disnake.ApplicationCommandInteraction) -> None:
         pass
 
     @commands.has_permissions(administrator=True)

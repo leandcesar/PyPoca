@@ -10,7 +10,7 @@ from pypoca.ext import ALL, DEFAULT, DEFAULT_LANGUAGE, DEFAULT_REGION, Choice, O
 
 
 class ShowButtons(disnake.ui.View):
-    def __init__(self, inter: disnake.MessageInteraction, *, show: Show):
+    def __init__(self, inter: disnake.MessageInteraction, *, show: Show) -> None:
         self.show = show
         server = Server.get_by_id(inter.guild.id)
         language = server.language if server else DEFAULT_LANGUAGE
@@ -36,7 +36,7 @@ class ShowButtons(disnake.ui.View):
 
 
 class ShowEmbed(disnake.Embed):
-    def __init__(self, inter: disnake.MessageInteraction, *, show: Show):
+    def __init__(self, inter: disnake.MessageInteraction, *, show: Show) -> None:
         server = Server.get_by_id(inter.guild.id)
         language = server.language if server else DEFAULT_LANGUAGE
         region = server.region if server else DEFAULT_REGION
@@ -119,7 +119,7 @@ class ShowSelect(disnake.ui.View):
 
 
 class Shows(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     async def _reply(self, inter: disnake.ApplicationCommandInteraction, *, results: list[dict]) -> None:
@@ -145,7 +145,7 @@ class Shows(commands.Cog):
             await inter.send(view=ShowSelect(inter, shows=[Show(result) for result in results]))
 
     @commands.group(name="tv", description=DEFAULT["COMMAND_TV_DESC"])
-    async def tv(self, ctx: commands.Context):
+    async def tv(self, ctx: commands.Context) -> None:
         pass
 
     @tv.command(name="discover", description=DEFAULT["COMMAND_TV_DISCOVER_DESC"])
@@ -197,7 +197,7 @@ class Shows(commands.Cog):
         await self._reply(ctx, results=response["results"][:1])
 
     @commands.slash_command(name="tv", description=DEFAULT["COMMAND_TV_DESC"])
-    async def slash_tv(self, inter: disnake.ApplicationCommandInteraction):
+    async def slash_tv(self, inter: disnake.ApplicationCommandInteraction) -> None:
         pass
 
     @slash_tv.sub_command(name="discover", description=DEFAULT["COMMAND_TV_DISCOVER_DESC"])

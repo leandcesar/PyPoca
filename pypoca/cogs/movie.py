@@ -10,7 +10,7 @@ from pypoca.ext import ALL, DEFAULT, DEFAULT_LANGUAGE, DEFAULT_REGION, Choice, M
 
 
 class MovieButtons(disnake.ui.View):
-    def __init__(self, inter: disnake.MessageInteraction, *, movie: Movie):
+    def __init__(self, inter: disnake.MessageInteraction, *, movie: Movie) -> None:
         self.movie = movie
         server = Server.get_by_id(inter.guild.id)
         language = server.language if server else DEFAULT_LANGUAGE
@@ -36,7 +36,7 @@ class MovieButtons(disnake.ui.View):
 
 
 class MovieEmbed(disnake.Embed):
-    def __init__(self, inter: disnake.MessageInteraction, *, movie: Movie):
+    def __init__(self, inter: disnake.MessageInteraction, *, movie: Movie) -> None:
         server = Server.get_by_id(inter.guild.id)
         language = server.language if server else DEFAULT_LANGUAGE
         region = server.region if server else DEFAULT_REGION
@@ -108,7 +108,7 @@ class MovieSelect(disnake.ui.View):
 
 
 class Movies(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     async def _reply(self, inter: disnake.ApplicationCommandInteraction, *, results: list[dict]) -> None:
@@ -134,7 +134,7 @@ class Movies(commands.Cog):
             await inter.send(view=MovieSelect(inter, movies=[Movie(result) for result in results]))
 
     @commands.group(name="movie", description=DEFAULT["COMMAND_MOVIE_DESC"])
-    async def movie(self, ctx: commands.Context):
+    async def movie(self, ctx: commands.Context) -> None:
         print(ctx)
 
     @movie.command(name="discover", description=DEFAULT["COMMAND_MOVIE_DISCOVER_DESC"])
@@ -186,7 +186,7 @@ class Movies(commands.Cog):
         await self._reply(ctx, results=response["results"][:1])
 
     @commands.slash_command(name="movie", description=DEFAULT["COMMAND_MOVIE_DESC"])
-    async def slash_movie(self, inter: disnake.ApplicationCommandInteraction):
+    async def slash_movie(self, inter: disnake.ApplicationCommandInteraction) -> None:
         pass
 
     @slash_movie.sub_command(name="discover", description=DEFAULT["COMMAND_MOVIE_DISCOVER_DESC"])

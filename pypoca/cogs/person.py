@@ -10,7 +10,7 @@ from pypoca.ext import ALL, DEFAULT, DEFAULT_LANGUAGE, DEFAULT_REGION, Choice, O
 
 
 class PersonButtons(disnake.ui.View):
-    def __init__(self, inter: disnake.MessageInteraction, *, person: Person):
+    def __init__(self, inter: disnake.MessageInteraction, *, person: Person) -> None:
         self.person = person
         server = Server.get_by_id(inter.guild.id)
         language = server.language if server else DEFAULT_LANGUAGE
@@ -38,7 +38,7 @@ class PersonButtons(disnake.ui.View):
 
 
 class PersonEmbed(disnake.Embed):
-    def __init__(self, inter: disnake.MessageInteraction, *, person: Person):
+    def __init__(self, inter: disnake.MessageInteraction, *, person: Person) -> None:
         server = Server.get_by_id(inter.guild.id)
         language = server.language if server else DEFAULT_LANGUAGE
         locale = ALL[language]
@@ -97,7 +97,7 @@ class PersonSelect(disnake.ui.View):
 
 
 class People(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     async def _reply(self, inter: disnake.ApplicationCommandInteraction, *, results: list[dict]) -> None:
@@ -147,7 +147,7 @@ class People(commands.Cog):
         await self._reply(ctx, results=response["results"][:1])
 
     @commands.slash_command(name="people", description=DEFAULT["COMMAND_PERSON_DESC"])
-    async def slash_person(self, inter: disnake.ApplicationCommandInteraction):
+    async def slash_person(self, inter: disnake.ApplicationCommandInteraction) -> None:
         pass
 
     @slash_person.sub_command(name="popular", description=DEFAULT["COMMAND_PERSON_POPULAR_DESC"])
